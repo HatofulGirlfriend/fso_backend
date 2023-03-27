@@ -14,28 +14,28 @@ console.log(url)
 mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+  name: String,
+  number: String,
 })
 
 const Person = mongoose.model("Person", personSchema)
 
 const person = new Person({
-    name: personName,
-    number: personNumber,
+  name: personName,
+  number: personNumber,
 })
 
 if (process.argv.length === 3) {
-    Person.find({}).then(result => {
-        console.log("Phonebook:")
-        result.forEach(person => {
-            console.log(person.name, person.number)
-        })
-        mongoose.connection.close()
+  Person.find({}).then(result => {
+    console.log("Phonebook:")
+    result.forEach(person => {
+      console.log(person.name, person.number)
     })
-    } else {
-    person.save().then(result => {
-        console.log(`added ${personName} to phonebook`)
-        mongoose.connection.close()
-    })
+    mongoose.connection.close()
+  })
+} else {
+  person.save().then(() => {
+    console.log(`added ${personName} to phonebook`)
+    mongoose.connection.close()
+  })
 }
